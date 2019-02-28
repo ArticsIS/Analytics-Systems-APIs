@@ -10,7 +10,7 @@
 
 ```bash
 git clone https://github.com/ArticsIS/Analytics-Systems-APIs
-cd Calltracking-Systems-APIs
+cd Analytics-Systems-APIs
 python3 -m pip install -r requirements.txt
 python3 example.py
 ```
