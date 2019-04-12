@@ -2,6 +2,7 @@
 
 import re
 import logging
+import httplib2
 from datetime import datetime, timedelta
 from googleapiclient import discovery
 from apiclient.errors import HttpError
@@ -20,6 +21,9 @@ class AnalyticsClient:
 			assert type(credentials) == dict
 			import google.oauth2.credentials
 			self.credentials = google.oauth2.credentials.Credentials(**credentials)
+		if not self.credentials.valid:
+			self.credentials.refresh(httplib2.Http())
+			logging.warning('GA: CREDENTIALS REFRESH: {0!s}'.format(self.credentials.client_id))
 		self.service = discovery.build('analytics', 'v3', credentials = self.credentials, cache_discovery=False)
 	def returnCredentials(self):
 		return {
